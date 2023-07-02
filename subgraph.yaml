@@ -1,0 +1,60 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MessageTransmitter
+    network: goerli
+    source:
+      address: "0x26413e8157cd32011e726065a5462e97dd4d03d9"
+      abi: MessageTransmitter
+      startBlock: 8123751
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AttesterDisabled
+        - AttesterEnabled
+        - AttesterManagerUpdated
+        - MaxMessageBodySizeUpdated
+        - MessageReceived
+        - MessageSent
+        - OwnershipTransferStarted
+        - OwnershipTransferred
+        - Pause
+        - PauserChanged
+        - RescuerChanged
+        - SignatureThresholdUpdated
+        - Unpause
+      abis:
+        - name: MessageTransmitter
+          file: ./abis/MessageTransmitter.json
+      eventHandlers:
+        - event: AttesterDisabled(indexed address)
+          handler: handleAttesterDisabled
+        - event: AttesterEnabled(indexed address)
+          handler: handleAttesterEnabled
+        - event: AttesterManagerUpdated(indexed address,indexed address)
+          handler: handleAttesterManagerUpdated
+        - event: MaxMessageBodySizeUpdated(uint256)
+          handler: handleMaxMessageBodySizeUpdated
+        - event: MessageReceived(indexed address,uint32,indexed uint64,bytes32,bytes)
+          handler: handleMessageReceived
+        - event: MessageSent(bytes)
+          handler: handleMessageSent
+        - event: OwnershipTransferStarted(indexed address,indexed address)
+          handler: handleOwnershipTransferStarted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Pause()
+          handler: handlePause
+        - event: PauserChanged(indexed address)
+          handler: handlePauserChanged
+        - event: RescuerChanged(indexed address)
+          handler: handleRescuerChanged
+        - event: SignatureThresholdUpdated(uint256,uint256)
+          handler: handleSignatureThresholdUpdated
+        - event: Unpause()
+          handler: handleUnpause
+      file: ./src/message-transmitter.ts

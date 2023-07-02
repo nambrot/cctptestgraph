@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "MessageTransmitter": {
+      "address": "0x26413e8157cd32011e726065a5462e97dd4d03d9",
+      "startBlock": 8123751
+    }
+  }
+}
