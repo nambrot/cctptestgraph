@@ -1,3 +1,4 @@
+import { BigInt, ByteArray, Bytes, ethereum } from "@graphprotocol/graph-ts"
 import {
   AttesterDisabled as AttesterDisabledEvent,
   AttesterEnabled as AttesterEnabledEvent,
@@ -108,7 +109,8 @@ export function handleMessageSent(event: MessageSentEvent): void {
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.message = event.params.message
-
+  entity.messageLength = BigInt.fromU32(event.params.message.toHexString().length)
+  entity.nonce = event.params.message.toHexString().slice(2 + 12 * 2, 2 + 12 * 2 + 8 * 2)
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash

@@ -46,6 +46,8 @@ type MessageReceived @entity(immutable: true) {
 type MessageSent @entity(immutable: true) {
   id: Bytes!
   message: Bytes! # bytes
+  messageLength: BigInt! # uint256
+  nonce: String! # uint64
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
